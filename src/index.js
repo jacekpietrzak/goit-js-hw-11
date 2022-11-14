@@ -1,5 +1,5 @@
 import './css/styles.css';
-import axios from 'axios';
+const axios = require('axios');
 import Notiflix from 'notiflix';
 
 // uzywamy async/await
