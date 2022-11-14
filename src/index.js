@@ -26,10 +26,11 @@ searchForm.addEventListener(
 submitBtn.addEventListener('click', event => {
   event.preventDefault();
   const savedSearch = localStorage.getItem('search-term');
-  if (savedSearch === null) {
+  if (savedSearch === null || savedSearch === '') {
     Notiflix.Notify.info('Please type something in the search input.');
     return;
   }
+  currentPage = 1;
   fetchImages(savedSearch, currentPage);
 });
 
@@ -178,11 +179,14 @@ loadMoreBtn.addEventListener('click', async () => {
     );
 
     const imagesArray = response.data.hits;
-    const imagesPerPage = imagesArray.length;
+    const imagesPerPage = POST_PER_PAGE;
 
     const totalImages = response.data.totalHits;
     const maxPageNumber = totalImages / imagesPerPage;
     const maxPageNumberRoundUp = Math.ceil(maxPageNumber);
+    console.log('currentPage: ', currentPage);
+    console.log('maxPageNumber: ', maxPageNumber);
+    console.log('maxPageNumberRoundUp: ', maxPageNumberRoundUp);
 
     if (currentPage === maxPageNumberRoundUp) {
       footer.style.display = 'none';
