@@ -26,7 +26,7 @@ searchForm.addEventListener(
 submitBtn.addEventListener('click', event => {
   event.preventDefault();
   const savedSearch = localStorage.getItem('search-term');
-  if (savedSearch === '') {
+  if (savedSearch === null) {
     Notiflix.Notify.info('Please type something in the search input.');
     return;
   }
@@ -51,6 +51,8 @@ const fetchImages = async (searchValue, currentPage) => {
     // console.log('response: ', response);
     const imagesArray = response.data.hits;
     // console.log('imagesArray: ', imagesArray);
+    if (searchValue === '') {
+    }
     if (imagesArray.length === 0) {
       Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
